@@ -1,0 +1,114 @@
+*, before, after {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-color: #0F0F0F;
+  --text-color: #FFFFFF;
+  --button-text-color: #5E5E5E;
+  --content-bg-color: #272727;
+  --theme-button-background: #262626;
+  --gradient-bg: linear-gradient(to left, transparent, #9c9c9c35, transparent);
+}
+
+body {
+  height: 100vh;
+}
+
+button {
+  background-color: transparent !important;
+  border: none;
+  border-radius: 0 !important;
+  cursor: pointer;
+  outline: none;
+  color: var(--text-color);
+}
+
+header {
+  background-color: var(--bg-color);
+}
+
+.vertical-navbar .btn {
+  padding: 10px 25px;
+  border-left: 2px solid transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.vertical-navbar .btn:hover {
+  background-image: var(--gradient-bg);
+  border-left: 2px solid var(--text-color);
+  transition: all 0.3s ease-in-out;
+}
+
+.vertical-navbar .btn:hover img {
+  filter: brightness(1000%);
+}
+
+.vertical-navbar .line {
+  width: 100%;
+  height: 3px;
+  background-image: var(--gradient-bg);
+  margin: 20px 0;
+}
+
+.content {
+  background-color: var(--content-bg-color);
+  padding: 20px;
+  border-radius: 50px;
+  color: var(--text-color);
+  transition: background-color 0.3s ease;
+}
+
+/* main */
+
+.searchbar:focus,
+.searchbar:active {
+  color: var(--button-text-color);
+  background-color: var(--content-bg-color);
+  box-shadow: 0 0 2px 2px var(--button-text-color);
+}
+
+.searchbar {
+  background-color: var(--content-bg-color);
+  padding: 10px 20px;
+  border-radius: 50px;
+  max-width: 330px;
+
+}
+
+.searchbar::placeholder {
+  color: var(--button-text-color);
+}
+
+.main .theme_buttons {
+  position: relative;
+  margin-left: 20px;
+  border-radius: 50px;
+  background-color: var(--theme-button-background);
+}
+
+.theme_buttons button{
+  padding: 5px;
+  border-radius: 50px !important;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  z-index: 10;
+}
+
+.active_theme {
+  transition: transform 0.3s ease-in-out;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  border-radius: 50px !important;
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  background-color: var(--theme-button-background);
+  box-shadow: inset 1px 1px 5px 2px #000;
+}
