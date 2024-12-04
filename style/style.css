@@ -86,7 +86,6 @@ header {
 
 .main .theme_buttons {
   position: relative;
-  margin-left: 20px;
   border-radius: 50px;
   background-color: var(--theme-button-background);
 }
@@ -112,3 +111,33 @@ header {
   background-color: var(--theme-button-background);
   box-shadow: inset 1px 1px 5px 2px #000;
 }
+
+.dropdown .dropdown-menu {
+  background-color: var(--content-bg-color);
+  padding-bottom: 1.2rem;
+  border-radius: 15px;
+}
+
+.dropdown .dropdown-menu button {
+  padding: 20px 25px;
+  border-bottom: 1px solid var(--button-text-color);
+  min-width: 400px;
+}
+
+.dropdown .dropdown-menu li:first-child button {
+  padding: 10px 20px;
+}
+
+.dropdown .dropdown-menu li:first-child button:hover {
+  background-color: transparent !important;
+}
+
+.dropdown .dropdown-menu li:last-child button {
+  border-bottom: none !important;
+}
+
+
+.dropdown-menu button.dropdown-item:hover {
+  background-color: #5a58583a !important;
+}
+
