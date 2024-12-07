@@ -12,6 +12,7 @@
   --button-text-color: #5E5E5E;
   --content-bg-color: #272727;
   --theme-button-background: #262626;
+  --minibox-bg: #363636;
   --gradient-bg: linear-gradient(to left, transparent, #9c9c9c35, transparent);
 }
 
@@ -90,6 +91,10 @@ header {
   background-color: var(--theme-button-background);
 }
 
+.main {
+  margin: 0 30px;
+}
+
 .theme_buttons button{
   padding: 5px;
   border-radius: 50px !important;
@@ -109,7 +114,7 @@ header {
   height: 44px;
   position: absolute;
   background-color: var(--theme-button-background);
-  box-shadow: inset 1px 1px 5px 2px #000;
+  box-shadow: inset 1px -1px 2px 1px #8a8a8a76, inset -1px 0px 2px 2px #000000bd, 0 0 3px #000;
 }
 
 .dropdown .dropdown-menu {
@@ -141,3 +146,51 @@ header {
   background-color: #5a58583a !important;
 }
 
+
+/* current_country */
+
+
+.current_country .row {
+  border-radius: 25px;
+  background-color: var(--content-bg-color);
+}
+
+.weatherInfoBox > *{
+  padding: 12px 0;
+}
+.weatherInfoBox select, .current_localation {
+  background: var(--minibox-bg);
+  border: 0;
+  color: var(--text-color);
+  padding: 7px 10px;
+  border-radius: 10px;
+}
+
+.weatherInfoBox select:hover {
+  background-color: var();
+}
+
+.current-day-img {
+  width: 100%;
+  text-align: right;
+}
+
+.current-day-img img {
+  margin-top: -15%;
+}
+
+#deg-select {
+  width: max-content;
+  float: right !important;
+  cursor: pointer;
+}
+
+#deg-select:hover {
+  background-image: var(--gradient-bg);
+  cursor: pointer;
+}
+
+#deg-select option:hover {
+  background-image: var(--gradient-bg);
+  cursor: pointer;
+}
