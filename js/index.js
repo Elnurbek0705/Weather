@@ -1,39 +1,31 @@
 "use strict";
-
 document.addEventListener("DOMContentLoaded", () => {
   function theme() {
     const lightThemeBtn = document.querySelector(".light-theme-btn"),
       darkThemeBtn = document.querySelector(".dark-theme-btn"),
       active_theme = document.querySelector(".active_theme");
-
+    const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+    const defaultTheme = systemPrefersLight ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", defaultTheme)
     const applyTheme = (isLight) => {
-      active_theme.style.transform = isLight
-        ? "translateX(-100%)"
-        : "translateX(0)";
-      setTimeout(() => {
-        if (isLight) {
-          lightThemeBtn.style.filter = "brightness(1000%)";
-          darkThemeBtn.style.filter = "";
-          darkThemeBtn.style.fill = "#5E5E5E";
-        } else {
-          darkThemeBtn.style.filter = "brightness(1000%)";
-          lightThemeBtn.style.filter = "";
-        }
-      }, 300);
+      document.documentElement.setAttribute("data-theme", isLight ? "light" : "dark");
+      active_theme.style.transform = isLight ? "translateX(-100%)" : "translateX(0)";
+      lightThemeBtn.style.filter = isLight ? "brightness(1000%)" : "";
+      darkThemeBtn.style.filter = isLight ? "" : "brightness(1000%)";
     };
+    applyTheme(defaultTheme === "light");
     lightThemeBtn.addEventListener("click", () => {
       console.log("Light Theme clicked");
       applyTheme(true);
     });
-
+  
     darkThemeBtn.addEventListener("click", () => {
       console.log("Dark Theme clicked");
       applyTheme(false);
     });
   }
-  theme()
   
-
+  theme();
 
 const header = document.querySelector("#header");
 const commonClasses = {
@@ -177,11 +169,9 @@ function updateWeather() {
               weatherImg.alt = weatherCondition;
 
               // Maksimal va minimal haroratni yangilash
-              weatherMax.textContent = `${weatherData.main.temp_max}°C`;
-              weatherMin.textContent = `/${weatherData.main.temp_min}°C`;
-
-              // His etilgan haroratni yangilash
-              weatherFeels.textContent = `Feels like ${weatherData.main.feels_like}°C`;
+              weatherMax.textContent = `${Math.round(weatherData.main.temp_max)}°C`;
+              weatherMin.textContent = `/${Math.round(weatherData.main.temp_min)}°C`;
+              weatherFeels.textContent = `Feels like ${Math.round(weatherData.main.feels_like)}°C`;
 
               // Ob-havo holatini yangilash
               weatherStatus.textContent = weatherData.weather[0].description;
@@ -189,20 +179,22 @@ function updateWeather() {
               // Harorat o'lchov birligini o'zgartirish (C / F)
               degSelect.addEventListener('change', (event) => {
                   const selectedUnit = event.target.value;
-                  const currentTempMax = weatherData.main.temp_max;
-                  const currentTempMin = weatherData.main.temp_min;
-                  const currentFeelsLike = +(weatherData.main.feels_like ).toFixed(1);
+                  const currentTempMax = Math.round(weatherData.main.temp_max);
+                  const currentTempMin = Math.round(weatherData.main.temp_min);
+                  const currentFeelsLike = Math.round(weatherData.main.feels_like );
+                  console.log(typeof weatherData.main.temp_max);
+
 
                   if (selectedUnit === 'dog') {
                       // Farengeytga aylantirish
-                      weatherMax.textContent = `${(currentTempMax * 9/5 + 32).toFixed(1)}°F`;
-                      weatherMin.textContent = `/${(currentTempMin * 9/5 + 32).toFixed(1)}°F`;
-                      weatherFeels.textContent = `Feels like ${(currentFeelsLike * 9/5 + 32).toFixed(1)}°F`;
+                      weatherMax.textContent = `${Math.round(currentTempMax * 9/5 + 32)}°F`;
+                      weatherMin.textContent = `/${Math.round(currentTempMin * 9/5 + 32)}°F`;
+                      weatherFeels.textContent = `Feels like ${Math.round(currentFeelsLike * 9/5 + 32)}°F`;
                   } else {
                       // Celsiusga qaytarish
-                      weatherMax.textContent = `${currentTempMax}°C`;
-                      weatherMin.textContent = `/${currentTempMin}°C`;
-                      weatherFeels.textContent = `Feels like ${currentFeelsLike}°C`;
+                      weatherMax.textContent = `${Math.round(currentTempMax)}°C`;
+                      weatherMin.textContent = `/${Math.round(currentTempMin)}°C`;
+                      weatherFeels.textContent = `Feels like ${Math.round(currentFeelsLike)}°C`;
                   }
               });
 
