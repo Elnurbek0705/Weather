@@ -62,6 +62,12 @@ header {
   transition: all 0.3s ease-in-out;
 }
 
+.navbar_active_btn {
+  background-image: var(--gradient-bg);
+  border-left: 2px solid var(--text-color);
+  transition: all 0.3s ease-in-out;
+}
+
 .vertical-navbar .btn:hover img {
   filter: brightness(1000%);
 }
@@ -215,3 +221,4 @@ header {
   background-image: var(--gradient-bg);
   cursor: pointer;
 }
+
