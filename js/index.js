@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function theme() {
     const lightThemeBtn = document.querySelector(".light-theme-btn"),
       darkThemeBtn = document.querySelector(".dark-theme-btn"),
-      active_theme = document.querySelector(".active_theme");
+      active_theme = document.querySelector(".active_theme"),
+      telegramImg = document.querySelector(".telegramImg");
     const systemPrefersLight = window.matchMedia(
       "(prefers-color-scheme: light)"
     ).matches;
@@ -22,19 +23,19 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     applyTheme(defaultTheme === "light");
     lightThemeBtn.addEventListener("click", () => {
+      telegramImg.src = "./img/telegram.png";
       console.log("Light Theme clicked");
       applyTheme(true);
     });
 
     darkThemeBtn.addEventListener("click", () => {
+      telegramImg.src = "./img/telegramLight.png";
       console.log("Dark Theme clicked");
       applyTheme(false);
     });
   }
 
   theme();
-
-  // Dynamically navbar
 
   function navbar() {
     const header = document.querySelector("#header");
@@ -73,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
       menuBtn = createElement("button", commonClasses.button),
       info_box = createElement("div", navClasses.infoBox),
       info_boxBtn = createElement("button", commonClasses.button[1]);
-    //
 
     header.prepend(nav);
     menu_box.appendChild(menuBtn);
@@ -122,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   navbar()
 
-  // Foydalanuvchi joylashuvini aniqlash va ob-havo ma'lumotlarini ko'rsatish
   function updateWeather() {
     // DOM elementlarni topish
     const locationSpan = document.querySelector(".current_localation span"),
@@ -138,7 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const degSelect = document.querySelector("#deg-select");
 
-    // Haftaning kunlari ro'yxati
     const weekdays = [
       "Sunday",
       "Monday",
@@ -163,24 +161,20 @@ document.addEventListener("DOMContentLoaded", () => {
       "December",
     ];
 
-    // Joylashuvni olish
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
 
-          // OpenWeather API orqali ob-havo ma'lumotlarini olish
-          const apiKey = "a40ebafd2f0a56d81aeaa5fbd82b18dc"; // OpenWeather API kalitini kiriting
+          const apiKey = "a40ebafd2f0a56d81aeaa5fbd82b18dc";
           const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
 
           try {
             const response = await fetch(weatherUrl);
             const weatherData = await response.json();
 
-            // Foydalanuvchi joylashuvi nomini ko'rsatish
             locationSpan.textContent = weatherData.name;
 
-            // Haftaning kunini aniqlash
             const today = new Date();
             weekdayElement.textContent = weekdays[today.getDay()];
             const yearsMonth = months[today.getMonth()];
@@ -189,7 +183,6 @@ document.addEventListener("DOMContentLoaded", () => {
               3
             )},${today.getFullYear()}`;
 
-            // Ob-havo holatini va tasvirini yangilash
             const weatherCondition = weatherData.weather[0].main.toLowerCase();
             console.log(weatherCondition);
 
@@ -213,7 +206,6 @@ document.addEventListener("DOMContentLoaded", () => {
             weatherImg.src = imgSrc;
             weatherImg.alt = weatherCondition;
 
-            // Maksimal va minimal haroratni yangilash
             weatherMax.textContent = `${Math.round(
               weatherData.main.temp_max
             )}°C`;
@@ -224,10 +216,8 @@ document.addEventListener("DOMContentLoaded", () => {
               weatherData.main.feels_like
             )}°C`;
 
-            // Ob-havo holatini yangilash
             weatherStatus.textContent = weatherData.weather[0].description;
 
-            // Harorat o'lchov birligini o'zgartirish (C / F)
             degSelect.addEventListener("change", (event) => {
               const selectedUnit = event.target.value;
               const currentTempMax = Math.round(weatherData.main.temp_max);
@@ -236,7 +226,6 @@ document.addEventListener("DOMContentLoaded", () => {
               console.log(typeof weatherData.main.temp_max);
 
               if (selectedUnit === "dog") {
-                // Farengeytga aylantirish
                 weatherMax.textContent = `${Math.round(
                   (currentTempMax * 9) / 5 + 32
                 )}°F`;
@@ -247,7 +236,6 @@ document.addEventListener("DOMContentLoaded", () => {
                   (currentFeelsLike * 9) / 5 + 32
                 )}°F`;
               } else {
-                // Celsiusga qaytarish
                 weatherMax.textContent = `${Math.round(currentTempMax)}°C`;
                 weatherMin.textContent = `/${Math.round(currentTempMin)}°C`;
                 weatherFeels.textContent = `Feels like ${Math.round(
