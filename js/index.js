@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (weatherCondition.includes("clear")) {
               imgSrc = "./img/weather_images/sunny.svg";
             } else if (weatherCondition.includes("mist")) {
-              imgSrc = "./img/weather_images/mist.png";
+              imgSrc = "./img/weather_images/cloudy.svg";
             } else {
               imgSrc = "./img/weather_images/default.svg";
             }
