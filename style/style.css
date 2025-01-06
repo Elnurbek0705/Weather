@@ -8,6 +8,7 @@ after {
    box-sizing: border-box;
 }
 
+
 :root {
    --bg-color: #eeeaea;
    --scrollbar-bg-color: #959595;
@@ -78,9 +79,8 @@ header {
    transition: all 0.3s ease-in-out;
 }
 
-.vertical-navbar .btn:hover {
+.vertical-navbar .btn:hover, .active_nav_btn {
    background-image: var(--gradient-bg);
-   border-left: 2px solid var(--text-color);
    transition: all 0.3s ease-in-out;
 }
 
@@ -90,7 +90,7 @@ header {
    transition: all 0.3s ease-in-out;
 }
 
-.vertical-navbar .btn:hover img {
+.vertical-navbar .btn:hover img, .active_nav_btn {
    filter: brightness(1000%);
 }
 
@@ -222,13 +222,10 @@ header {
 }
 
 .current-day-img {
-   width: 115%;
+   width: 100%;
    text-align: right;
 }
 
-.current-day-img img {
-   margin-top: -15%;
-}
 
 #deg-select {
    width: max-content;
@@ -403,6 +400,8 @@ header {
 /* Other countries */
 /* *************** */
 
+
+/* 5 Day Forecast */
 
 .ten_day_forecast .day::after {
    content: "";

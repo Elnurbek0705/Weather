@@ -1,5 +1,4 @@
 "use strict";
-// import countryNames from './countries.js';
 
 const countryNames = {
   UZ: "Uzbekistan",
@@ -22,19 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
       darkThemeBtn = document.querySelector(".dark-theme-btn"),
       active_theme = document.querySelector(".active_theme"),
       telegramImg = document.querySelector(".telegramImg");
-    const systemPrefersLight = window.matchMedia(
-      "(prefers-color-scheme: light)"
-    ).matches;
+    const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
     const defaultTheme = systemPrefersLight ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", defaultTheme);
     const applyTheme = (isLight) => {
-      document.documentElement.setAttribute(
-        "data-theme",
-        isLight ? "light" : "dark"
-      );
-      active_theme.style.transform = isLight
-        ? "translateX(-100%)"
-        : "translateX(0)";
+      document.documentElement.setAttribute("data-theme", isLight ? "light" : "dark");
+      active_theme.style.transform = isLight ? "translateX(-100%)" : "translateX(0)";
       lightThemeBtn.style.filter = isLight ? "brightness(1000%)" : "";
       darkThemeBtn.style.filter = isLight ? "" : "brightness(1000%)";
     };
@@ -62,17 +54,14 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const navClasses = {
-      verticalNavbar:
-        "vertical-navbar content py-5 p-0 d-flex flex-column justify-content-between",
-      menuBox:
-        "menu_box d-flex justify-content-center align-items-center flex-column w-100",
+      verticalNavbar: "vertical-navbar content py-5 p-0 d-flex flex-column justify-content-between",
+      menuBox: "menu_box d-flex justify-content-center align-items-center flex-column w-100",
       buttonsGroup: {
         buttons_groupClassname: "buttons_group d-flex flex-column w-100",
         button: "btn w-100",
-        buttonType: ["weather", "map", "notifications", "settings"],
+        buttonType: ["weather active_nav_btn", "map", "notifications", "settings"],
       },
-      infoBox:
-        "info_box d-flex justify-content-center align-items-center flex-column w-100",
+      infoBox: "info_box d-flex justify-content-center align-items-center flex-column w-100",
     };
 
     function createElement(tag, className, textContent) {
@@ -84,10 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const nav = createElement("nav", navClasses.verticalNavbar),
       menu_box = createElement("div", navClasses.menuBox),
-      buttons_group = createElement(
-        "div",
-        navClasses.buttonsGroup.buttons_groupClassname
-      ),
+      buttons_group = createElement("div", navClasses.buttonsGroup.buttons_groupClassname),
       menuBtn = createElement("button", commonClasses.button),
       info_box = createElement("div", navClasses.infoBox),
       info_boxBtn = createElement("button", commonClasses.button[1]);
@@ -96,10 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     menu_box.appendChild(menuBtn);
     menu_box.appendChild(buttons_group);
     navClasses.buttonsGroup.buttonType.forEach((type) => {
-      const button = createElement(
-        "button",
-        `${navClasses.buttonsGroup.button} ${type}`
-      );
+      const button = createElement("button", `${navClasses.buttonsGroup.button} ${type}`);
       buttons_group.appendChild(button);
     });
 
@@ -142,22 +125,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const locationSpan = document.querySelector(".current_localation span"),
       weekdayElement = document.querySelector(".weekday"),
       mmddyy = document.querySelector(".mmddyy"),
-      weatherImg = document.querySelector(".current-day-img img"),
+      weatherImgCurrent = document.querySelector(".current-day-img img"),
       weatherMax = document.querySelector(".weather-max-data"),
       weatherMin = document.querySelector(".weather-min-data"),
       weatherFeels = document.querySelector(".feels"),
       weatherStatus = document.querySelector(".status"),
       degSelect = document.querySelector("#deg-select");
 
-    const weekdays = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
+    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const months = [
       "Jan",
       "Feb",
@@ -178,60 +153,78 @@ document.addEventListener("DOMContentLoaded", () => {
         async (position) => {
           const { latitude, longitude } = position.coords;
 
-          const apiKey = "a40ebafd2f0a56d81aeaa5fbd82b18dc";
+          const apiKey = "a40ebafd2f0a56d81aeaa5fbd82b18dc",
+            apiKeyforecast = "c161f5a4e9b147fa8bb66414e81aa1a1";
           const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
-          
+          const forecastUrl = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&key=${apiKeyforecast}`;
+
           try {
             const response = await fetch(weatherUrl);
             const weatherData = await response.json();
             console.log(weatherData);
-            locationSpan.textContent =
-              weatherData.name + ", " + countryNames[weatherData.sys.country];
+            locationSpan.textContent = weatherData.name + ", " + countryNames[weatherData.sys.country];
 
             const today = new Date();
             weekdayElement.textContent = weekdays[today.getDay()];
             const yearsMonth = months[today.getMonth()];
-            mmddyy.textContent = `${today.getDate()} ${yearsMonth.slice(
-              0,
-              3
-            )},${today.getFullYear()}`;
+            mmddyy.textContent = `${today.getDate()} ${yearsMonth.slice(0, 3)},${today.getFullYear()}`;
 
             const weatherCondition = weatherData.weather[0].main.toLowerCase();
 
-            let imgSrc = "";
+            document.querySelectorAll(".others_countries_country").forEach((countryElement) => {
+              countryElement.addEventListener("click", async () => {
+                const cityName = countryElement.querySelector(".city_name").textContent;
+                const apiKey = "a40ebafd2f0a56d81aeaa5fbd82b18dc";
+                const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
 
-            if (weatherCondition.includes("rain")) {
-              imgSrc = "./img/weather_images/rainny.svg";
-            } else if (
-              weatherCondition.includes("cloud") ||
-              weatherCondition.includes("smoke")
-            ) {
-              imgSrc = "./img/weather_images/cloudy.svg";
-            } else if (weatherCondition.includes("clear")) {
-              imgSrc = "./img/weather_images/sunny.svg";
-            } else if (weatherCondition.includes("mist")) {
-              imgSrc = "./img/weather_images/cloudy.svg";
-            } else if (
-              weatherCondition.includes("mist") ||
-              weatherCondition.includes("fog")
-            ) {
-              imgSrc = "./img/weather_images/mist.png";
-            } else {
-              imgSrc = "./img/weather_images/default.svg";
+                try {
+                  const response = await fetch(weatherUrl);
+                  if (!response.ok) {
+                    throw new Error("Ma'lumotni olishda xatolik");
+                  }
+                  const weatherData = await response.json();
+                  locationSpan.textContent = weatherData.name + ", " + countryNames[weatherData.sys.country];
+                  weatherMax.textContent = `${Math.round(weatherData.main.temp_max)}°C`;
+                  weatherMin.textContent = `/${Math.round(weatherData.main.temp_min)}°C`;
+                  weatherFeels.textContent = `Feels like ${Math.round(weatherData.main.feels_like)}°C`;
+                  weatherStatus.textContent = weatherData.weather[0].description;
+
+                  const weatherCondition = weatherData.weather[0].main.toLowerCase();
+                  weatherConditionToText(weatherImgCurrent, weatherCondition);
+
+                  console.log(`Yangilangan shahar: ${cityName}`, weatherData);
+                } catch (error) {
+                  console.error("Shahar ma'lumotlarini olishda xatolik:", error);
+                }
+              });
+            });
+
+            function weatherConditionToText(weatherImg, getweatherCondition) {
+              let imgSrc = "";
+
+              if (getweatherCondition.includes("rain")) {
+                imgSrc = "./img/weather_images/rainny.svg";
+              } else if (getweatherCondition.includes("cloud") || getweatherCondition.includes("smoke")) {
+                imgSrc = "./img/weather_images/cloudy.svg";
+              } else if (weatherCondition.includes("clear")) {
+                imgSrc = "./img/weather_images/sunny.svg";
+              } else if (getweatherCondition.includes("mist")) {
+                imgSrc = "./img/weather_images/cloudy.svg";
+              } else if (getweatherCondition.includes("mist") || getweatherCondition.includes("fog")) {
+                imgSrc = "./img/weather_images/mist.png";
+              } else {
+                imgSrc = "./img/weather_images/default.svg";
+              }
+
+              weatherImg.src = imgSrc;
+              weatherImg.alt = getweatherCondition;
             }
 
-            weatherImg.src = imgSrc;
-            weatherImg.alt = weatherCondition;
+            weatherConditionToText(weatherImgCurrent, weatherCondition);
 
-            weatherMax.textContent = `${Math.round(
-              weatherData.main.temp_max
-            )}°C`;
-            weatherMin.textContent = `/${Math.round(
-              weatherData.main.temp_min
-            )}°C`;
-            weatherFeels.textContent = `Feels like ${Math.round(
-              weatherData.main.feels_like
-            )}°C`;
+            weatherMax.textContent = `${Math.round(weatherData.main.temp_max)}°C`;
+            weatherMin.textContent = `/${Math.round(weatherData.main.temp_min)}°C`;
+            weatherFeels.textContent = `Feels like ${Math.round(weatherData.main.feels_like)}°C`;
 
             weatherStatus.textContent = weatherData.weather[0].description;
 
@@ -243,104 +236,144 @@ document.addEventListener("DOMContentLoaded", () => {
               console.log(typeof weatherData.main.temp_max);
 
               if (selectedUnit === "dog") {
-                weatherMax.textContent = `${Math.round(
-                  (currentTempMax * 9) / 5 + 32
-                )}°F`;
-                weatherMin.textContent = `/${Math.round(
-                  (currentTempMin * 9) / 5 + 32
-                )}°F`;
-                weatherFeels.textContent = `Feels like ${Math.round(
-                  (currentFeelsLike * 9) / 5 + 32
-                )}°F`;
+                weatherMax.textContent = `${Math.round((currentTempMax * 9) / 5 + 32)}°F`;
+                weatherMin.textContent = `/${Math.round((currentTempMin * 9) / 5 + 32)}°F`;
+                weatherFeels.textContent = `Feels like ${Math.round((currentFeelsLike * 9) / 5 + 32)}°F`;
               } else {
                 weatherMax.textContent = `${Math.round(currentTempMax)}°C`;
                 weatherMin.textContent = `/${Math.round(currentTempMin)}°C`;
-                weatherFeels.textContent = `Feels like ${Math.round(
-                  currentFeelsLike
-                )}°C`;
+                weatherFeels.textContent = `Feels like ${Math.round(currentFeelsLike)}°C`;
               }
             });
 
             // Today’s Highlight
-            // select html class from
+            // select html class from object
 
             const highlightClasses = {
-               windStatus: {
-                   container: "wind_status",
-                   speed: "wind_speed",
-                   gust: "gust",
-               },
-               humidity: {
-                   container: "humidity_status",
-                   percentage: "humidity_percentage",
-                   situation: "humidity_situation",
-               },
-               sun_rise_set: {
-                   container: "sun_rise_set",
-                   sunrise: "sunrise_time",
-                   sunset: "sunset_time",
-               },
-               timezone: {
-                  timezone_text: "timezone_text",
-                  current_time: "timezone",
-               },
-               visibility: {
-                  visibility_distance: "visibility_distance",
-                  visibility_status_text: "visibility_status_text"
-               }
-           };
+              windStatus: {
+                container: "wind_status",
+                speed: "wind_speed",
+                deg: "deg",
+              },
+              humidity: {
+                container: "humidity_status",
+                percentage: "humidity_percentage",
+                situation: "humidity_situation",
+              },
+              sun_rise_set: {
+                container: "sun_rise_set",
+                sunrise: "sunrise_time",
+                sunset: "sunset_time",
+              },
+              timezone: {
+                timezone_text: "timezone_text",
+                current_time: "timezone",
+              },
+              visibility: {
+                visibility_distance: "visibility_distance",
+                visibility_status_text: "visibility_status_text",
+              },
+              forecast: {
+                day: "day",
+                day_img: "day_img",
+                weather_day_data: "weather_day_data",
+              },
+            };
 
-           const windSpeed = document.querySelector(`.${highlightClasses.windStatus.speed}`),
-            gust = document.querySelector(`.${highlightClasses.windStatus.gust}`),
-            humidityPercentage = document.querySelector(`.${highlightClasses.humidity.percentage}`),
-            humiditySituation = document.querySelector(`.${highlightClasses.humidity.situation}`),
-            sunriseTime = document.querySelector(`.${highlightClasses.sun_rise_set.sunrise}`),
-            sunsetTime = document.querySelector(`.${highlightClasses.sun_rise_set.sunset}`),
-            timezone_text = document.querySelector(`.${highlightClasses.timezone.timezone_text}`),
-            currentTime = document.querySelector(`.${highlightClasses.timezone.current_time}`),
-            visibilityDistance = document.querySelector(`.${highlightClasses.visibility.visibility_distance}`),
-            visibilityStatusText = document.querySelector(`.${highlightClasses.visibility.visibility_status_text}`);
-            
-            
-           windSpeed.textContent = `${weatherData.wind.speed}`;
-           gust.textContent = `${weatherData.wind.gust}`;
-           humidityPercentage.textContent = `${weatherData.main.humidity}`;
-           humiditySituation.textContent = weatherCondition.includes("rain")? "Rainy" : "Humid";
-           sunriseTime.textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString();
-           sunsetTime.textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString();
-           const timezoneOffset = weatherData.timezone;
-           const timezoneOffsetHours = timezoneOffset / 3600;
-           const formattedTimezone = `UTC${timezoneOffsetHours >= 0 ? '+' : ''}${timezoneOffsetHours}`;
+            const windSpeed = document.querySelector(`.${highlightClasses.windStatus.speed}`),
+              wind_deg = document.querySelector(`.${highlightClasses.windStatus.deg}`),
+              humidityPercentage = document.querySelector(`.${highlightClasses.humidity.percentage}`),
+              humiditySituation = document.querySelector(`.${highlightClasses.humidity.situation}`),
+              sunriseTime = document.querySelector(`.${highlightClasses.sun_rise_set.sunrise}`),
+              sunsetTime = document.querySelector(`.${highlightClasses.sun_rise_set.sunset}`),
+              timezone_text = document.querySelector(`.${highlightClasses.timezone.timezone_text}`),
+              currentTime = document.querySelector(`.${highlightClasses.timezone.current_time}`),
+              visibilityDistance = document.querySelector(`.${highlightClasses.visibility.visibility_distance}`),
+              visibilityStatusText = document.querySelector(`.${highlightClasses.visibility.visibility_status_text}`),
+              forecastDays = document.querySelectorAll(`.${highlightClasses.forecast.day}`),
+              forecastDayImgs = document.querySelectorAll(`.${highlightClasses.forecast.day_img}`),
+              forecastDayData = document.querySelectorAll(`.${highlightClasses.forecast.weather_day_data}`);
+
+            function getWindDirection(deg) {
+              if ((deg >= 337.5 && deg <= 360) || (deg >= 0 && deg < 22.5)) {
+                return "North";
+              } else if (deg >= 22.5 && deg < 67.5) {
+                return "Northeast";
+              } else if (deg >= 67.5 && deg < 112.5) {
+                return "East";
+              } else if (deg >= 112.5 && deg < 157.5) {
+                return "Southeast";
+              } else if (deg >= 157.5 && deg < 202.5) {
+                return "South";
+              } else if (deg >= 202.5 && deg < 247.5) {
+                return "Southwest";
+              } else if (deg >= 247.5 && deg < 292.5) {
+                return "West";
+              } else if (deg >= 292.5 && deg < 337.5) {
+                return "Northwest";
+              } else {
+                return "Unknown direction";
+              }
+            }
+            function displayWindInfo(windInfo) {
+              const windDirection = getWindDirection(windInfo);
+              wind_deg.textContent = `${windDirection}`;
+            }
+            const windDeg = weatherData.wind.deg;
+            displayWindInfo(windDeg);
+
+            windSpeed.textContent = `${weatherData.wind.speed}`;
+            humidityPercentage.textContent = `${weatherData.main.humidity}`;
+            humiditySituation.textContent = weatherCondition.includes("rain") ? "Rainy" : "Humid";
+            sunriseTime.textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString();
+            sunsetTime.textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString();
+            const timezoneOffset = weatherData.timezone;
+            const timezoneOffsetHours = timezoneOffset / 3600;
+            const formattedTimezone = `UTC${timezoneOffsetHours >= 0 ? "+" : ""}${timezoneOffsetHours}`;
             timezone_text.textContent = formattedTimezone;
             function updateTime() {
-               const utcDate = new Date(Date.now());
-               const hours = utcDate.getHours().toString().padStart(2, '0');
-               const minutes = utcDate.getMinutes().toString().padStart(2, '0');
-               const seconds = utcDate.getSeconds().toString().padStart(2, '0');
-           
-               currentTime.textContent = `${hours}:${minutes}:${seconds}`;
+              const utcDate = new Date(Date.now());
+              const hours = utcDate.getHours().toString().padStart(2, "0");
+              const minutes = utcDate.getMinutes().toString().padStart(2, "0");
+              const seconds = utcDate.getSeconds().toString().padStart(2, "0");
+
+              currentTime.textContent = `${hours}:${minutes}:${seconds}`;
             }
             setInterval(updateTime, 1000);
             updateTime();
-           
+
             const visibilityKm = weatherData.visibility / 1000;
             visibilityDistance.textContent = visibilityKm;
             let visibilityStatus = "Normal";
             if (visibilityKm > 10) {
-               visibilityStatus = "Good";
-           } else if (visibilityKm <= 10 && visibilityKm > 2) {
-               visibilityStatus = "Normal";
-           } else {
-               visibilityStatus = "Poor";
-           }
+              visibilityStatus = "Good";
+            } else if (visibilityKm <= 10 && visibilityKm > 2) {
+              visibilityStatus = "Normal";
+            } else {
+              visibilityStatus = "Poor";
+            }
             visibilityStatusText.textContent = visibilityStatus;
 
-           
+            // Forecast
+            const forecastUrlres = await fetch(forecastUrl);
+            const forecastData = await forecastUrlres.json();
 
-
-           
-
-
+            forecastDays.forEach((day, index) => {
+               const forecastDayData = new Date(forecastData.data[index].datetime);
+               const dayOfWeek = forecastDayData.toLocaleString("en-US", { weekday: "long" });
+               day.textContent = dayOfWeek;
+            });
+            forecastDayImgs.forEach((img, index) => {
+               const weatherCondition = forecastData.data[index].weather.description;
+               console.log(weatherCondition);
+               weatherConditionToText(img, weatherCondition);
+            });
+            forecastDayData.forEach((data, index) => {
+               const weatherStatus =
+               (+forecastData.data[index].app_max_temp + +forecastData.data[index].app_min_temp) / 2;
+               console.log(weatherStatus);
+               data.textContent = `${Math.round(weatherStatus)}°C`;
+            });
           } catch (error) {
             console.error("Ob-havo ma'lumotlarini olishda xatolik:", error);
             locationSpan.textContent =
@@ -369,10 +402,7 @@ document.addEventListener("DOMContentLoaded", () => {
       main_weather_content = document.querySelector(".main_weather_content");
 
     document.addEventListener("click", (e) => {
-      if (
-        e.target.id === "signInOutModal" ||
-        e.target.classList.contains("btnClose")
-      ) {
+      if (e.target.id === "signInOutModal" || e.target.classList.contains("btnClose")) {
         formModal.classList.add("modal-hide");
         main_weather_content.classList.remove("modal-hide");
         document.body.style.overflow = "";
@@ -402,9 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function alertModal() {
     const modal = document.querySelector("#successModal");
     const modalMessage = document.querySelector("#modalMessage");
-    const successModalCloseBtn = document.querySelector(
-      ".successModalCloseBtn"
-    );
+    const successModalCloseBtn = document.querySelector(".successModalCloseBtn");
     function closeModal() {
       modal.style.transform = "translateX(100%)";
       setTimeout(() => {
@@ -449,8 +477,6 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("./php/session_data.php")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         const sayHello = document.getElementById("welcomeMessage"),
           userName = document.getElementById("userName"),
           userEmail = document.getElementById("userEmail"),
@@ -486,18 +512,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = "./index.php"; // Chiqishdan so'ng sahifani yangilash
               })
               .catch((error) => console.error("Chiqishda xatolik:", error));
-          } else if (
-            e.target.id === "cancelSignoutBtn" ||
-            e.target.id === "signoutModal"
-          ) {
+          } else if (e.target.id === "cancelSignoutBtn" || e.target.id === "signoutModal") {
             signoutModal.classList.add("modal-hide");
             document.body.style.overflow = "";
           }
         });
       })
-      .catch((error) =>
-        console.error("Sessiya ma'lumotlarini olishda xatolik:", error)
-      );
+      .catch((error) => console.error("Sessiya ma'lumotlarini olishda xatolik:", error));
   }
 
   alertModal();

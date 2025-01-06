@@ -52,19 +52,19 @@
                      <li>
                         <button class="dropdown-item d-flex align-items-center p-3 px-4" href="#">
                            <img class="mx-2" src="./img/gear.png" width="20" alt="photo" />
-                           <span class="mx-3 settings-btn">Hisobni boshqarish</span>
+                           <span class="mx-3 settings-btn">Profile settings</span>
                         </button>
                      </li>
                      <li>
                         <button class="dropdown-item d-flex align-items-center p-3 px-4" id="tizimga-kirish-btn"
                            href="#">
                            <img class="mx-2" src="./img/sign-in.png" width="20" alt="photo" />
-                           <span class="mx-3" id="tizim-text">Tizimga kirish</span>
+                           <span class="mx-3" id="tizim-text">Sign in</span>
                         </button>
                         <button class="dropdown-item d-flex align-items-center p-3 px-4 d-none" id="tizimdan-chiqish"
                            href="#">
                            <img class="mx-2" src="./img/sign-in.png" width="20" alt="photo" />
-                           <span class="mx-3" id="tizim-text">Tizimdan chiqish</span>
+                           <span class="mx-3" id="tizim-text">Sign out</span>
                         </button>
                      </li>
                   </ul>
@@ -109,6 +109,7 @@
                   </div>
 
                   <!-- other_countries -->
+                   
                   <div class="others_countries content mt-4">
                      <div class="others_countries-title d-flex justify-content-between">
                         <b class="fs-4">Others Countries</b>
@@ -125,8 +126,8 @@
                            <img src="./img/weather_images/sunny.svg" width="70" height="70" alt="photo" />
                         </div>
                         <div class="other_country_weather_degries">
-                           <span class="weather-max-data fw-bold fs-4">25&deg;C</span>
-                           <span class="weather-min-data">/17&deg;C
+                           <span class="weather-max-data fw-bold fs-4">0&deg;C</span>
+                           <span class="weather-min-data">/0&deg;C
                            </span>
                         </div>
                      </div>
@@ -142,8 +143,8 @@
                            <img src="./img/weather_images/sunny.svg" width="70" height="70" alt="photo" />
                         </div>
                         <div class="other_country_weather_degries">
-                           <span class="weather-max-data fw-bold fs-4">25&deg;C</span>
-                           <span class="weather-min-data">/17&deg;C
+                           <span class="weather-max-data fw-bold fs-4">0&deg;C</span>
+                           <span class="weather-min-data">/0&deg;C
                            </span>
                         </div>
                      </div>
@@ -165,8 +166,7 @@
                                  </div>
                                  <b class="wind_speed fs-4 d-inline-block my-2">0</b>
                                  <span class="fs-6 fw-medium">km/h</span><br>
-                                 <div class="gust d-inline-block">0</div>
-                                 <span class="fs-6 fw-medium">km/h gust</span>
+                                 <div class="deg d-inline-block">0</div>
                               </div>
                            </div>
 
@@ -190,7 +190,7 @@
                                  </div>
                                  <div class="col-md-6">
                                     <div class="fw-medium">Sunrise</div>
-                                    <b class="sunrise_time fs-4">00:00:00 AM</b>
+                                    <b class="sunrise_time fs-4">00:00:00</b>
                                  </div>
                               </div>
                            </div>
@@ -230,7 +230,7 @@
                                  </div>
                                  <div class="col-md-6">
                                     <div class="fw-medium">Sunset</div>
-                                    <b class="sunset_time fs-4">00:00:00 PM</b>
+                                    <b class="sunset_time fs-4">00:00:00</b>
                                  </div>
                               </div>
                            </div>
@@ -238,50 +238,44 @@
                      </div>
                   </div>
 
-                  <div class="ten_day_forecast content mt-4">
-                     <b class="fs-4 pb-4 d-inline-block">10 Day Forecast</b>
+                  <div class="six_day_forecast content mt-4">
+                     <b class="fs-4 pb-4 d-inline-block">5 Day Forecast</b>
                      <div class="row">
-                        <div class="col-sm-2 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col d-flex flex-column align-items-center justify-content-center">
                            <div class="day_item info_cantent text-center">
                               <div class="day position-relative fw-medium">Today</div>
                               <img src="./img/weather_images/rainny.svg" class="day_img my-3" width="70" height="70" alt="">
-                              <div class="weather_day_data">28°C</div>
+                              <div class="weather_day_data">0°C</div>
                            </div>
                         </div>
-                        <div class="col-sm-2 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col d-flex flex-column align-items-center justify-content-center">
                            <div class="day_item info_cantent text-center">
                               <div class="day position-relative fw-medium">Today</div>
                               <img src="./img/weather_images/rainny.svg" class="day_img my-3" width="70" height="70" alt="">
-                              <div class="weather_day_data">28°C</div>
+                              <div class="weather_day_data">0°C</div>
                            </div>
                         </div>
-                        <div class="col-sm-2 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col d-flex flex-column align-items-center justify-content-center">
                            <div class="day_item info_cantent text-center">
                               <div class="day position-relative fw-medium">Today</div>
                               <img src="./img/weather_images/rainny.svg" class="day_img my-3" width="70" height="70" alt="">
-                              <div class="weather_day_data">28°C</div>
+                              <div class="weather_day_data">0°C</div>
                            </div>
                         </div>
-                        <div class="col-sm-2 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col d-flex flex-column align-items-center justify-content-center">
                            <div class="day_item info_cantent text-center">
                               <div class="day position-relative fw-medium">Today</div>
                               <img src="./img/weather_images/rainny.svg" class="day_img my-3" width="70" height="70" alt="">
-                              <div class="weather_day_data">28°C</div>
+                              <div class="weather_day_data">0°C</div>
                            </div>
                         </div>
-                        <div class="col-sm-2 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col d-flex flex-column align-items-center justify-content-center">
                            <div class="day_item info_cantent text-center">
                               <div class="day position-relative fw-medium">Today</div>
                               <img src="./img/weather_images/rainny.svg" class="day_img my-3" width="70" height="70" alt="">
-                              <div class="weather_day_data">28°C</div>
+                              <div class="weather_day_data">0°C</div>
                            </div>
                         </div>
-                        <div class="col-sm-2 d-flex flex-column align-items-center justify-content-center">
-                           <div class="day_item info_cantent text-center">
-                              <div class="day position-relative fw-medium">Today</div>
-                              <img src="./img/weather_images/rainny.svg" class="day_img my-3" width="70" height="70" alt="">
-                              <div class="weather_day_data">28°C</div>
-                           </div>
                         </div>
                      </div>
                   </div>
@@ -386,10 +380,10 @@
 
    <div id="signoutModal" class="modal position-fixed modal-hide manage_modal">
       <div class="modal-items d-flex flex-column align-content-center justify-content-center text-center">
-         <p class="text-danger fw-bold fs-5">Haqiqatdan ham tizimdan chiqmoqchimisiz?</p>
+         <p class="text-danger fw-bold fs-5">Are you sure you want to log out?</p>
          <div class="w-50 d-flex justify-content-sm-between  mx-auto">
-            <button id="confirmSignoutBtn" class="fw-bold btn-hover-effect">Ha</button>
-            <button id="cancelSignoutBtn" class="fw-bold btn-hover-effect">Yo'q</button>
+            <button id="confirmSignoutBtn" class="fw-bold btn-hover-effect">Yes</button>
+            <button id="cancelSignoutBtn" class="fw-bold btn-hover-effect">No</button>
          </div>
       </div>
    </div>
