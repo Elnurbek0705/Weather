@@ -109,44 +109,11 @@
                   </div>
 
                   <!-- other_countries -->
-                   
-                  <div class="others_countries content mt-4">
+                  
+                  <div class="others_countries content mt-4 ">
                      <div class="others_countries-title d-flex justify-content-between">
                         <b class="fs-4">Others Countries</b>
                         <button class="seeAllBtn">See All &bigtriangledown;</button>
-                     </div>
-                     <div
-                        class="others_countries_country btn-hover-effect info_cantent d-flex justify-content-between align-items-center my-4">
-                        <div class="other_country_nameInfo">
-                           <div class="country_name weather-min-data">Country</div>
-                           <div class="city_name fs-4">City</div>
-                           <div class="weather_status">Status</div>
-                        </div>
-                        <div class="other_country_weather_img">
-                           <img src="./img/weather_images/sunny.svg" width="70" height="70" alt="photo" />
-                        </div>
-                        <div class="other_country_weather_degries">
-                           <span class="weather-max-data fw-bold fs-4">0&deg;C</span>
-                           <span class="weather-min-data">/0&deg;C
-                           </span>
-                        </div>
-                     </div>
-
-                     <div
-                        class="others_countries_country btn-hover-effect info_cantent d-flex justify-content-between align-items-center">
-                        <div class="other_country_nameInfo">
-                           <div class="country_name weather-min-data">Country</div>
-                           <div class="city_name fs-4">City</div>
-                           <div class="weather_status">Status</div>
-                        </div>
-                        <div class="other_country_weather_img">
-                           <img src="./img/weather_images/sunny.svg" width="70" height="70" alt="photo" />
-                        </div>
-                        <div class="other_country_weather_degries">
-                           <span class="weather-max-data fw-bold fs-4">0&deg;C</span>
-                           <span class="weather-min-data">/0&deg;C
-                           </span>
-                        </div>
                      </div>
                   </div>
                </div>
@@ -204,8 +171,8 @@
                                     <img src="./img/weather_images/timezone.svg" alt="photo">
                                     <b>Time Zone</b>
                                  </div>
-                                 <b class="timezone fs-4 d-inline-block my-2">0</b>
-                                 <span class="fs-6 fw-medium current_time"></span>
+                                 <b class="current_time fs-4 d-inline-block my-2">0</b>
+                                 <span class="fs-6 fw-medium period_text"></span>
                                  <div class="timezone_text">UTC</div>
                               </div>
                            </div>

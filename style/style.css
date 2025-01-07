@@ -400,6 +400,25 @@ header {
 /* Other countries */
 /* *************** */
 
+.others_countries {
+   transition: max-height 0.3s ease;
+   z-index: 1000;
+   overflow-y: hidden;
+   max-height: 375px;
+}
+
+.others_countries.fideAll {
+   max-height: 100%;
+   width: 53.7%;
+   max-width: 53.7%;
+   position: static;
+   position: fixed;
+   right: 0;
+   top: 0%;
+   overflow: auto;
+}
+
+
 
 /* 5 Day Forecast */
 
